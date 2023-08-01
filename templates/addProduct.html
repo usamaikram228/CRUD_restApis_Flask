@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+</head>
+<body>
+    <form id = "myForm" action="" method="POST">
+        <label for="">Name</label>
+        <input type="text" name="name">
+        <label for="">Description</label>
+        <input type="text" name="description">
+        <label for="">price</label>
+        <input type="text" name="price">
+        <input id="submit" type="button" name="submit" value="submit">
+    </form>
+    <script>
+        $(document).ready(function()
+        {
+            $('#submit').on('click',function()
+            {
+                var formData = $('#myForm').serializeArray();
+                var data= {};
+                $(formData).each(function(index,obj)
+                {
+                    data[obj.name] = obj.value;
+                });
+                data = JSON.stringify(data)
+                console.log(data)
+                $.ajax({
+                    url:'/api/Products',
+                    type:"POST",
+                    data: data,
+                    dataType:'json',
+                    contentType:"application/json; charset=utf-8",
+
+                    success: function(result){
+                        console.log(result)
+                    },
+                    error: function(xhr,resp,text)
+                    {
+                        console.log(xhr, resp, text);
+                    }
+                })
+            })
+        });
+    </script>
+    
+</body>
+</html>

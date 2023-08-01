@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+    <link href="https://fonts.googleapis.com/css?family=Rubik" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+  <!-- Latest compiled JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+       <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+    <script
+src="http://code.jquery.com/jquery-3.3.1.js"
+integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+crossorigin="anonymous"></script>
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+</head>
+<body>
+    <div class="formDiv">
+        <form action="" id="MyForm">
+        <label for="">Name</label>
+        <input type="text" name="name"  id="userInput"><br>
+        
+        <!-- <label for="">Description</label>
+        <input type="text" name="description"><br>
+        <label for="">price</label>
+        <input type="text" name="price"><br>-->
+        <input id="submit" type="button" name="submit" value="submit"> 
+    </form>
+    </div>
+    <script>
+        $(document).ready(function()
+        {
+            $('#submit').on('click',function()
+            {
+                var formData = $('#myForm').serializeArray();
+                var data= {};
+                $(formData).each(function(index,obj)
+                {
+                    data[obj.name] = obj.value;
+                });
+                data = JSON.stringify(data)
+                console.log(data)
+                var inputString
+    //      $(document).ready(function () {
+    //      $("#getValue").click(function () {
+    //     inputString = $("#userinput").val();
+    //     console.log(inputString)
+    //     alert(inputString);
+    //     });
+   // });       
+                inputString = $("#userInput").val();
+                console.log(inputString)
+                $.ajax({
+                    url:'/api/Productsname/'+inputString,
+                    type:"DELETE",
+                    data: data,
+                    dataType:'json',
+                    contentType:"application/json; charset=utf-8",
+
+                    success: function(result){
+                        console.log(result)
+                    },
+                    error: function(xhr,resp,text)
+                    {
+                        console.log(xhr, resp, text);
+                    }
+                })
+            })
+        });
+        </script>
+</body>
+</html>
